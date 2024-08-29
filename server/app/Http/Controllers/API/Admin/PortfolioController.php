@@ -24,10 +24,6 @@ class PortfolioController extends Controller
     public function index(): JsonResponse
     {
         try {
-            if (!request()->user()->tokenCan('portfolio:list')) {
-                throw new AuthorizationException('User does not have the required permission');
-            }
-
             return response()->json([
                 'apiVersion' => '1.0',
                 'data' => Portfolio::all()

@@ -24,10 +24,6 @@ class BlogController extends Controller
     public function index(): JsonResponse
     {
         try {
-            if (!request()->user()->tokenCan('blog:list')) {
-                throw new AuthorizationException('User does not have the required permission');
-            }
-
             return response()->json([
                 'apiVersion' => '1.0',
                 'data' => Blog::all()

@@ -15,4 +15,11 @@ class Banner extends Model
         'description',
         'status'
     ];
+
+    protected $appends = ['image_url'];
+
+    public function getImageUrlAttribute()
+    {
+        return route('media', ['path' => "banner/{$this->image}"]);
+    }
 }

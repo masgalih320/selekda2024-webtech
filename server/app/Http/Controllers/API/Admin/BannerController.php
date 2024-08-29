@@ -22,10 +22,6 @@ class BannerController extends Controller
     public function index(): JsonResponse
     {
         try {
-            if (!request()->user()->tokenCan('banner:list')) {
-                throw new AuthorizationException('User does not have the required permission');
-            }
-
             return response()->json([
                 'apiVersion' => '1.0',
                 'data' => Banner::all()
