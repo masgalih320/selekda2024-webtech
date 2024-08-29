@@ -15,7 +15,7 @@ Route::prefix('v1')
                     ->name('profile.')
                     ->group(function () {
                         Route::get('show', [ProfileController::class, 'show'])->name('show');
-                        Route::put('update', [ProfileController::class, 'update'])->name('update');
+                        Route::post('update', [ProfileController::class, 'update'])->name('update');
                     });
 
                 Route::prefix('banner')
@@ -23,6 +23,9 @@ Route::prefix('v1')
                     ->group(function () {
                         Route::get('/', [BannerController::class, 'index'])->name('index');
                         Route::get('show/{banner}', [BannerController::class, 'show'])->name('show');
+
+                        Route::post('store', [BannerController::class, 'store'])->name('store');
+                        Route::post('update/{banner}', [BannerController::class, 'update'])->name('update');
 
                         Route::delete('destroy/{id}', [BannerController::class, 'destroy'])->name('destroy');
                     });
