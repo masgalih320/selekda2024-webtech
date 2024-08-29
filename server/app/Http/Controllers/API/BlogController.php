@@ -71,7 +71,6 @@ class BlogController extends Controller
             $blog->title = $request->title;
             $blog->description = $request->description;
             $blog->tags = explode(',', $request->tags);
-            $blog->created_at = now();
             $blog->save();
 
             return response()->json([
@@ -95,15 +94,17 @@ class BlogController extends Controller
 
     /**
      * Display the specified resource.
-     * @param \App\Models\Blog $blog
+     * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show(Blog $blog): JsonResponse
+    public function show(int $id): JsonResponse
     {
         try {
             if (!request()->user()->tokenCan('blog:show')) {
                 throw new AuthorizationException('User does not have the required permission');
             }
+
+            $blog = Blog::findOrFail($id);
 
             return response()->json([
                 'apiVersion' => '1.0',
@@ -127,15 +128,17 @@ class BlogController extends Controller
     /**
      * Update the specified resource in storage.
      * @param \App\Http\Requests\Blog\UpdateRequest $request
-     * @param \App\Models\Blog $blog
+     * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(UpdateRequest $request, Blog $blog): JsonResponse
+    public function update(UpdateRequest $request, int $id): JsonResponse
     {
         try {
             if (!request()->user()->tokenCan('blog:update')) {
                 throw new AuthorizationException('User does not have the required permission');
             }
+
+            $blog = Blog::findOrFail($id);
 
             $imageName = null;
             if ($request->hasFile('featured_image')) {
@@ -151,7 +154,6 @@ class BlogController extends Controller
             $blog->title = $request->title;
             $blog->description = $request->description;
             $blog->tags = explode(',', $request->tags) ?? [];
-            $blog->created_at = now();
             $blog->save();
 
             return response()->json([

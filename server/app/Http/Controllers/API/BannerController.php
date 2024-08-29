@@ -68,7 +68,6 @@ class BannerController extends Controller
             $banner->description = $request->description;
             $banner->image = $imageName;
             $banner->status = $request->status;
-            $banner->created_at = now();
             $banner->save();
 
             return response()->json([
@@ -127,12 +126,14 @@ class BannerController extends Controller
      * @param \App\Models\Banner $banner
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(UpdateRequest $request, Banner $banner): JsonResponse
+    public function update(UpdateRequest $request, int $id): JsonResponse
     {
         try {
             if (!request()->user()->tokenCan('banner:update')) {
                 throw new AuthorizationException('User does not have the required permission');
             }
+
+            $banner = Banner::findOrFail($id);
 
             $imageName = null;
             if ($request->hasFile('image')) {
@@ -148,7 +149,6 @@ class BannerController extends Controller
             $banner->image = $imageName;
             $banner->description = $request->description;
             $banner->status = $request->status;
-            $banner->updated_at = now();
             $banner->save();
 
             return response()->json([

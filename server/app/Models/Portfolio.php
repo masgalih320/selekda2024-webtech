@@ -16,8 +16,20 @@ class Portfolio extends Model
         'description'
     ];
 
+    protected $hidden = [
+        'created_by_id',
+        'users'
+    ];
+
+    protected $appends = ['author'];
+
     public function users()
     {
-        return $this->hasOne(User::class, 'id');
+        return $this->belongsTo(User::class, 'created_by_id');
+    }
+
+    public function getAuthorAttribute()
+    {
+        return $this->users ? $this->users->name : null;
     }
 }
