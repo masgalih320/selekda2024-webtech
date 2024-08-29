@@ -14,15 +14,8 @@
     <RouterView />
   </main>
 
-  <footer class="container">Copyright &copy; {{ new Date().getFullYear() }}</footer>
+  <footer class="container">
+    <p>Copyright &copy; {{ new Date().getFullYear() }}</p>
+    <p>Designed by <a href="https://galih.me" class="url-primary">Galih Sukristyan Saputra</a></p>
+  </footer>
 </template>
-
-<script setup>
-import { useCounterStore } from '@/stores/counter'
-
-const counter = useCounterStore()
-
-counter.count++
-counter.$patch({ count: counter.count + 1 })
-counter.increment()
-</script>
