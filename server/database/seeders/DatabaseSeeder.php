@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Banner;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -23,8 +24,11 @@ class DatabaseSeeder extends Seeder
             'email' => 'galih@kopling.com',
             'date_of_birth' => '1970-01-01 00:00:00',
             'password' => Hash::make('kopling'),
+            'roles' => 'administrator',
             'email_verified_at' => now(),
             'created_at' => now(),
         ]);
+
+        Banner::factory(10)->create();
     }
 }

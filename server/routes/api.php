@@ -1,14 +1,30 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\API\Auth\LoginController;
+use App\Http\Controllers\API\BannerController;
+use App\Http\Controllers\API\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')
     ->group(function () {
-        Route::post('login', [App\Http\Controllers\API\Auth\LoginController::class, 'login'])->name('login');
+        Route::post('login', [LoginController::class, 'login'])->name('login');
 
         Route::middleware('auth:sanctum')
             ->group(function () {
-                Route::get('profile', [App\Http\Controllers\API\ProfileController::class, '__invoke'])->name('profile');
+                Route::prefix('profile')
+                    ->name('profile.')
+                    ->group(function () {
+                        Route::get('show', [ProfileController::class, 'show'])->name('show');
+                        Route::put('update', [ProfileController::class, 'update'])->name('update');
+                    });
+
+                Route::prefix('banner')
+                    ->name('banner.')
+                    ->group(function () {
+                        Route::get('/', [BannerController::class, 'index'])->name('index');
+                        Route::get('show/{banner}', [BannerController::class, 'show'])->name('show');
+
+                        Route::delete('destroy/{id}', [BannerController::class, 'destroy'])->name('destroy');
+                    });
             });
     });

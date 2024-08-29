@@ -1,8 +1,10 @@
 <?php
 
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
 
 return Application::configure(basePath: dirname(__DIR__))
@@ -16,5 +18,13 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        $exceptions->renderable(function (AuthenticationException  $e, $request) {
+            if ($request->wantsJson()) {
+                return response()->json([
+                    'apiVersion' => '1.0',
+                    'code' => Response::HTTP_UNAUTHORIZED,
+                    'message' => $e->getMessage(),
+                ], Response::HTTP_UNAUTHORIZED);
+            }
+        });
     })->create();
