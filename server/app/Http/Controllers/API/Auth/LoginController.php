@@ -25,7 +25,18 @@ class LoginController extends Controller
             ], Response::HTTP_UNAUTHORIZED);
         }
 
-        $token = $request->user()->createToken($request->username);
+        // untuk role user batasi akses kesini
+        $can = [
+            'user:profile',
+            'user:profile_update'
+        ];
+
+        // untuk role admin, loskan saja
+        if (Auth::user()->roles == 'administrator') {
+            $can = ['*'];
+        }
+
+        $token = $request->user()->createToken($request->username, $can);
         return response()->json([
             'apiVersion' => '1.0',
             'data' => [

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Profile\UpdateRequest;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class ProfileController extends Controller
 {
@@ -20,10 +21,28 @@ class ProfileController extends Controller
      */
     public function show(): JsonResponse
     {
-        return response()->json([
-            'apiVersion' => '1.0',
-            'data' => Auth::user()
-        ], Response::HTTP_OK);
+        try {
+            if (!request()->user()->tokenCan('user:profile')) {
+                throw new AuthorizationException('User does not have the required permission');
+            }
+
+            return response()->json([
+                'apiVersion' => '1.0',
+                'data' => Auth::user()
+            ], Response::HTTP_OK);
+        } catch (AuthorizationException $e) {
+            return response()->json([
+                'apiVersion' => '1.0',
+                'code' => Response::HTTP_FORBIDDEN,
+                'message' => $e->getMessage(),
+            ], Response::HTTP_FORBIDDEN);
+        } catch (Exception $e) {
+            return response()->json([
+                'apiVersion' => '1.0',
+                'code' => Response::HTTP_BAD_REQUEST,
+                'message' => $e->getMessage(),
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 
     /**
@@ -34,6 +53,10 @@ class ProfileController extends Controller
     public function update(UpdateRequest $request): JsonResponse
     {
         try {
+            if (!request()->user()->tokenCan('user:profile_update')) {
+                throw new AuthorizationException('User does not have the required permission');
+            }
+
             $imageName = null;
             if ($request->hasFile('profile_picture')) {
                 $imageName = Str::uuid() . '.' . $request->profile_picture->extension();
@@ -58,6 +81,12 @@ class ProfileController extends Controller
                 'apiVersion' => '1.0',
                 'data' => User::where('id', Auth::id())->first()
             ], Response::HTTP_OK);
+        } catch (AuthorizationException $e) {
+            return response()->json([
+                'apiVersion' => '1.0',
+                'code' => Response::HTTP_FORBIDDEN,
+                'message' => $e->getMessage(),
+            ], Response::HTTP_FORBIDDEN);
         } catch (Exception $e) {
             return response()->json([
                 'apiVersion' => '1.0',

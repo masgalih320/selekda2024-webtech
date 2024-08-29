@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\Auth\LoginController;
 use App\Http\Controllers\API\BannerController;
+use App\Http\Controllers\API\BlogController;
 use App\Http\Controllers\API\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,19 @@ Route::prefix('v1')
                         Route::post('update/{banner}', [BannerController::class, 'update'])->name('update');
 
                         Route::delete('destroy/{id}', [BannerController::class, 'destroy'])->name('destroy');
+                    });
+
+                Route::prefix('blog')
+                    ->name('blog.')
+                    ->group(function () {
+                        Route::get('/', [BlogController::class, 'index'])->name('index');
+                        Route::get('show/{blog}', [BlogController::class, 'show'])->name('show');
+
+                        Route::post('store', [BlogController::class, 'store'])->name('store');
+
+                        Route::post('update/{blog}', [BlogController::class, 'update'])->name('update');
+
+                        Route::delete('destroy/{id}', [BlogController::class, 'destroy'])->name('destroy');
                     });
             });
     });

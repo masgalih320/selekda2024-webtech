@@ -3,17 +3,19 @@
 namespace App\Http\Controllers\API;
 
 use Exception;
-use App\Models\Banner;
+use App\Models\Blog;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Blog\StoreRequest;
+use App\Http\Requests\Blog\UpdateRequest;
 use Illuminate\Support\Facades\Storage;
-use App\Http\Requests\Banner\StoreRequest;
-use App\Http\Requests\Banner\UpdateRequest;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Support\Facades\Auth;
 
-class BannerController extends Controller
+class BlogController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,13 +24,13 @@ class BannerController extends Controller
     public function index(): JsonResponse
     {
         try {
-            if (!request()->user()->tokenCan('banner:list')) {
+            if (!request()->user()->tokenCan('blog:list')) {
                 throw new AuthorizationException('User does not have the required permission');
             }
 
             return response()->json([
                 'apiVersion' => '1.0',
-                'data' => Banner::all()
+                'data' => Blog::all()
             ], Response::HTTP_OK);
         } catch (AuthorizationException $e) {
             return response()->json([
@@ -47,33 +49,34 @@ class BannerController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * @param \App\Http\Requests\Banner\StoreRequest $request
+     * @param \App\Http\Requests\Blog\StoreRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(StoreRequest $request)
+    public function store(StoreRequest $request): JsonResponse
     {
         try {
-            if (!request()->user()->tokenCan('banner:store')) {
+            if (!request()->user()->tokenCan('blog:store')) {
                 throw new AuthorizationException('User does not have the required permission');
             }
 
             $imageName = null;
-            if ($request->hasFile('image')) {
-                $imageName = Str::uuid() . '.' . $request->image->extension();
-                Storage::disk('public')->putFileAs("media/banner/", $request->image, $imageName);
+            if ($request->hasFile('featured_image')) {
+                $imageName = Str::uuid() . '.' . $request->featured_image->extension();
+                Storage::disk('public')->putFileAs("media/blog/", $request->featured_image, $imageName);
             }
 
-            $banner = new Banner();
-            $banner->title = $request->title;
-            $banner->description = $request->description;
-            $banner->image = $imageName;
-            $banner->status = $request->status;
-            $banner->created_at = now();
-            $banner->save();
+            $blog = new Blog();
+            $blog->created_by_id = Auth::id();
+            $blog->featured_image = $imageName;
+            $blog->title = $request->title;
+            $blog->description = $request->description;
+            $blog->tags = explode(',', $request->tags);
+            $blog->created_at = now();
+            $blog->save();
 
             return response()->json([
                 'apiVersion' => '1.0',
-                'data' => $banner
+                'data' => $blog
             ], Response::HTTP_OK);
         } catch (AuthorizationException $e) {
             return response()->json([
@@ -92,19 +95,19 @@ class BannerController extends Controller
 
     /**
      * Display the specified resource.
-     * @param \App\Models\Banner $banner
+     * @param \App\Models\Blog $blog
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show(Banner $banner)
+    public function show(Blog $blog): JsonResponse
     {
         try {
-            if (!request()->user()->tokenCan('banner:show')) {
+            if (!request()->user()->tokenCan('blog:show')) {
                 throw new AuthorizationException('User does not have the required permission');
             }
 
             return response()->json([
                 'apiVersion' => '1.0',
-                'data' => $banner
+                'data' => $blog
             ], Response::HTTP_OK);
         } catch (AuthorizationException $e) {
             return response()->json([
@@ -123,37 +126,37 @@ class BannerController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * @param \App\Http\Requests\Banner\UpdateRequest $request
-     * @param \App\Models\Banner $banner
+     * @param \App\Http\Requests\Blog\UpdateRequest $request
+     * @param \App\Models\Blog $blog
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(UpdateRequest $request, Banner $banner): JsonResponse
+    public function update(UpdateRequest $request, Blog $blog): JsonResponse
     {
         try {
-            if (!request()->user()->tokenCan('banner:update')) {
+            if (!request()->user()->tokenCan('blog:update')) {
                 throw new AuthorizationException('User does not have the required permission');
             }
 
             $imageName = null;
-            if ($request->hasFile('image')) {
-                $imageName = Str::uuid() . '.' . $request->image->extension();
-                Storage::disk('public')->putFileAs("media/banner/", $request->image, $imageName);
+            if ($request->hasFile('featured_image')) {
+                $imageName = Str::uuid() . '.' . $request->featured_image->extension();
+                Storage::disk('public')->putFileAs("media/blog/", $request->featured_image, $imageName);
             }
 
-            if (Storage::disk('public')->exists("media/banner/{$banner->image}")) {
-                Storage::disk('public')->delete("media/banner/{$banner->image}");
+            if (Storage::disk('public')->exists("media/blog/{$blog->featured_image}")) {
+                Storage::disk('public')->delete("media/blog/{$blog->featured_image}");
             }
 
-            $banner->title = $request->title;
-            $banner->image = $imageName;
-            $banner->description = $request->description;
-            $banner->status = $request->status;
-            $banner->updated_at = now();
-            $banner->save();
+            $blog->featured_image = $imageName;
+            $blog->title = $request->title;
+            $blog->description = $request->description;
+            $blog->tags = explode(',', $request->tags) ?? [];
+            $blog->created_at = now();
+            $blog->save();
 
             return response()->json([
                 'apiVersion' => '1.0',
-                'data' => $banner
+                'data' => $blog
             ], Response::HTTP_OK);
         } catch (AuthorizationException $e) {
             return response()->json([
@@ -178,20 +181,20 @@ class BannerController extends Controller
     public function destroy(int $id): JsonResponse
     {
         try {
-            if (!request()->user()->tokenCan('banner:update')) {
+            if (!request()->user()->tokenCan('blog:delete')) {
                 throw new AuthorizationException('User does not have the required permission');
             }
 
-            $banner = Banner::findOrFail($id);
+            $blog = Blog::findOrFail($id);
 
-            if (Storage::disk('public')->exists("media/banner/{$banner->image}")) {
-                Storage::disk('public')->delete("media/banner/{$banner->image}");
+            if (Storage::disk('public')->exists("media/blog/{$blog->featured_image}")) {
+                Storage::disk('public')->delete("media/blog/{$blog->featured_image}");
             }
 
             return response()->json([
                 'apiVersion' => '1.0',
                 'data' => [
-                    'deleted' => $banner->delete() ? true : false
+                    'deleted' => $blog->delete() ? true : false
                 ]
             ], Response::HTTP_OK);
         } catch (AuthorizationException $e) {
