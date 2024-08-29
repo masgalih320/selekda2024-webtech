@@ -1,18 +1,22 @@
 <?php
 
 use App\Http\Controllers\API\Auth\LoginController;
-use App\Http\Controllers\API\BannerController;
-use App\Http\Controllers\API\BlogController;
-use App\Http\Controllers\API\PortfolioController;
-use App\Http\Controllers\API\ProfileController;
+use App\Http\Controllers\API\Auth\ProfileController;
+use App\Http\Controllers\API\Auth\RegisterController;
+use App\Http\Controllers\API\Admin\BannerController;
+use App\Http\Controllers\API\Admin\BlogController;
+use App\Http\Controllers\API\Admin\PortfolioController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')
     ->group(function () {
-        Route::post('login', [LoginController::class, 'login'])->name('login');
+        Route::post('login', [LoginController::class, '__invoke'])->name('login');
+        Route::post('register', [RegisterController::class, '__invoke'])->name('register');
 
         Route::middleware('auth:sanctum')
             ->group(function () {
+                Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+
                 Route::prefix('profile')
                     ->name('profile.')
                     ->group(function () {
