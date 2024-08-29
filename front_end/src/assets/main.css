@@ -15,6 +15,21 @@ ul {
   padding: 0;
 }
 
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+section {
+  text-align: center;
+}
+
+section>h2 {
+  font-weight: bold;
+}
+
 /* Start Banner Section */
 .banners {
   overflow: hidden;
@@ -41,6 +56,7 @@ ul {
 }
 
 .banners .slider-container ul .slider-item .slider-content {
+  text-align: left;
   position: absolute;
   top: 40%;
   left: 5%;
@@ -135,6 +151,44 @@ ul {
   }
 }
 
+/* Start Testimonial */
+.testimonial>.testimonial-grids {
+  text-align: left;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 6px;
+}
+
+.testimonial>.testimonial-grids>.card {
+  margin-top: 2rem;
+  box-shadow: #E5E5E5;
+  border: 1px solid var(--vt-c-primary);
+  border-radius: .3rem;
+  padding: 1rem;
+}
+
+.testimonial>.testimonial-grids>.card>h3 {
+  font-weight: bold;
+}
+
+.testimonial>.testimonial-grids>.card>p.job {
+  padding-bottom: .5rem;
+}
+
+.testimonial>.testimonial-grids>.card>p.content {
+  padding-top: .5rem;
+  border-top: 1px solid #E5E5E5;
+}
+
+@media only screen and (max-width: 768px) {
+  .testimonial>.testimonial-grids {
+    text-align: left;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 6px;
+  }
+}
+
 /* Start Header */
 header.header-top {
   display: flex;
@@ -148,18 +202,21 @@ nav.header-nav a:not(:last-child) {
   padding-right: 20px;
 }
 
-.container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding-left: 2rem;
-  padding-right: 2rem;
-}
-
+/* Start Footer */
 footer {
-  padding-top: 1rem;
+  padding-top: 3rem;
   padding-bottom: 1rem;
 }
 
 .url-primary {
   color: var(--vt-c-primary);
+}
+
+.socials {
+  display: flex;
+  align-items: center;
+}
+
+.socials a:not(:last-child) {
+  padding-right: .5rem;
 }

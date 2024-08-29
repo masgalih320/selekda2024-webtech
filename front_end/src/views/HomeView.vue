@@ -1,7 +1,7 @@
 <template>
   <section v-if="banners" class="banners">
     <div class="slider-container">
-      <ul :style="{ transform: `translateX(-${currentIndex * 100}%)` }">
+      <ul :style="{ transform: `translateX(-${currentBannerIndex * 100}%)` }">
         <li v-for="(banner, index) in banners.data" :key="index" class="slider-item">
           <img :src="banner.image_url" :alt="banner.title" />
           <div class="slider-content">
@@ -18,38 +18,88 @@
     </div>
   </section>
 
+  <section class="about">
+    <h2>About</h2>
+  </section>
+
   <section class="news">
     <h2>News</h2>
+  </section>
+
+  <section class="services">
+    <h2>Services</h2>
+  </section>
+
+  <section class="testimonial">
+    <h2>Testimonials</h2>
+    <p>What they say about us</p>
+
+    <div class="testimonial-grids">
+      <div class="card">
+        <h3>Rahmat Tahalu</h3>
+        <p class="job">Web3 Enthusiast</p>
+
+        <p class="content">
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consectetur possimus obcaecati
+          quaerat earum. Natus harum assumenda ad ratione, recusandae dolore!
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Rahmat Tahalu</h3>
+        <p class="job">Web3 Enthusiast</p>
+
+        <p class="content">
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consectetur possimus obcaecati
+          quaerat earum. Natus harum assumenda ad ratione, recusandae dolore!
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Rahmat Tahalu</h3>
+        <p class="job">Web3 Enthusiast</p>
+
+        <p class="content">
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consectetur possimus obcaecati
+          quaerat earum. Natus harum assumenda ad ratione, recusandae dolore!
+        </p>
+      </div>
+    </div>
   </section>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
 import fetchBanner from '@/services/banner'
+import fetchPortfolio from '@/services/portfolio'
 
 const banners = ref([])
-
-const currentIndex = ref(0)
+const portfolio = ref([])
+const currentBannerIndex = ref(0)
 
 function prevSlide() {
-  if (currentIndex.value > 0) {
-    currentIndex.value -= 1
+  if (currentBannerIndex.value > 0) {
+    currentBannerIndex.value -= 1
   } else {
-    currentIndex.value = banners.value.data.length - 1
+    currentBannerIndex.value = banners.value.data.length - 1
   }
 }
 
 function nextSlide() {
-  if (currentIndex.value < banners.value.data.length - 1) {
-    currentIndex.value += 1
+  if (currentBannerIndex.value < banners.value.data.length - 1) {
+    currentBannerIndex.value += 1
   } else {
-    currentIndex.value = 0
+    currentBannerIndex.value = 0
   }
 }
 
 onMounted(() => {
   fetchBanner().then((json) => {
     banners.value = json
+  })
+
+  fetchPortfolio().then((json) => {
+    portfolio.value = json
   })
 })
 </script>
