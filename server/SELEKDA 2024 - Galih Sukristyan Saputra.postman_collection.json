@@ -1,0 +1,941 @@
+{
+	"info": {
+		"_postman_id": "b6d5bd79-c1a8-47c9-8807-78cf07ac9436",
+		"name": "SELEKDA 2024 - Galih Sukristyan Saputra",
+		"description": "SELEKDA 2024 API Documentation\n\nGalih Sukristyan Saputra",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16476526"
+	},
+	"item": [
+		{
+			"name": "AUTH",
+			"item": [
+				{
+					"name": "LOGIN",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"galih\",\n    \"password\": \"kopling\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://selekda-backend.galih.me/api/v1/login",
+							"protocol": "https",
+							"host": [
+								"selekda-backend",
+								"galih",
+								"me"
+							],
+							"path": [
+								"api",
+								"v1",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "REGISTER",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Tes User",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "user",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "081234567890",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "user@user.com",
+									"type": "text"
+								},
+								{
+									"key": "date_of_birth",
+									"value": "1970-01-01",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "awokawok",
+									"type": "text"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "awokawok",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://selekda-backend.galih.me/api/v1/register",
+							"protocol": "https",
+							"host": [
+								"selekda-backend",
+								"galih",
+								"me"
+							],
+							"path": [
+								"api",
+								"v1",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LOGOUT",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://selekda-backend.galih.me/api/v1/logout",
+							"protocol": "https",
+							"host": [
+								"selekda-backend",
+								"galih",
+								"me"
+							],
+							"path": [
+								"api",
+								"v1",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PROFILE",
+			"item": [
+				{
+					"name": "UPDATE PROFILE",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Galih Hahahehe",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "085787725094",
+									"type": "text"
+								},
+								{
+									"key": "date_of_birth",
+									"value": "2000-01-10",
+									"type": "text"
+								},
+								{
+									"key": "profile_picture",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "https://selekda-backend.galih.me/api/v1/profile/update",
+							"protocol": "https",
+							"host": [
+								"selekda-backend",
+								"galih",
+								"me"
+							],
+							"path": [
+								"api",
+								"v1",
+								"profile",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PROFILE",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://selekda-backend.galih.me/api/v1/profile/show",
+							"protocol": "https",
+							"host": [
+								"selekda-backend",
+								"galih",
+								"me"
+							],
+							"path": [
+								"api",
+								"v1",
+								"profile",
+								"show"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "BANNER",
+			"item": [
+				{
+					"name": "LIST",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://selekda-backend.galih.me/api/v1/banner",
+							"protocol": "https",
+							"host": [
+								"selekda-backend",
+								"galih",
+								"me"
+							],
+							"path": [
+								"api",
+								"v1",
+								"banner"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SHOW",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://selekda-backend.galih.me/api/v1/banner/show/1",
+							"protocol": "https",
+							"host": [
+								"selekda-backend",
+								"galih",
+								"me"
+							],
+							"path": [
+								"api",
+								"v1",
+								"banner",
+								"show",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Lorem",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "status",
+									"value": "active",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://selekda-backend.galih.me/api/v1/banner/store",
+							"protocol": "https",
+							"host": [
+								"selekda-backend",
+								"galih",
+								"me"
+							],
+							"path": [
+								"api",
+								"v1",
+								"banner",
+								"store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Dolor",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Lorem ipsum dolor",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "status",
+									"value": "inactive",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://selekda-backend.galih.me/api/v1/banner/update/1",
+							"protocol": "https",
+							"host": [
+								"selekda-backend",
+								"galih",
+								"me"
+							],
+							"path": [
+								"api",
+								"v1",
+								"banner",
+								"update",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://selekda-backend.galih.me/api/v1/banner/destroy/1",
+							"protocol": "https",
+							"host": [
+								"selekda-backend",
+								"galih",
+								"me"
+							],
+							"path": [
+								"api",
+								"v1",
+								"banner",
+								"destroy",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "BLOG",
+			"item": [
+				{
+					"name": "LIST",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://selekda-backend.galih.me/api/v1/blog",
+							"protocol": "https",
+							"host": [
+								"selekda-backend",
+								"galih",
+								"me"
+							],
+							"path": [
+								"api",
+								"v1",
+								"blog"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SHOW",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://selekda-backend.galih.me/api/v1/blog/show/1",
+							"protocol": "https",
+							"host": [
+								"selekda-backend",
+								"galih",
+								"me"
+							],
+							"path": [
+								"api",
+								"v1",
+								"blog",
+								"show",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "featured_image",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "title",
+									"value": "Lorem ipsum",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Lorem ipsum",
+									"type": "text"
+								},
+								{
+									"key": "tags",
+									"value": "tags1,tags2,tags3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://selekda-backend.galih.me/api/v1/blog/store",
+							"protocol": "https",
+							"host": [
+								"selekda-backend",
+								"galih",
+								"me"
+							],
+							"path": [
+								"api",
+								"v1",
+								"blog",
+								"store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "featured_image",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "title",
+									"value": "Updated",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Lorem ipsum dolor sit amet",
+									"type": "text"
+								},
+								{
+									"key": "tags",
+									"value": "haha,hehe,hihi,huhu",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://selekda-backend.galih.me/api/v1/blog/update/1",
+							"protocol": "https",
+							"host": [
+								"selekda-backend",
+								"galih",
+								"me"
+							],
+							"path": [
+								"api",
+								"v1",
+								"blog",
+								"update",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://selekda-backend.galih.me/api/v1/blog/destroy/1",
+							"protocol": "https",
+							"host": [
+								"selekda-backend",
+								"galih",
+								"me"
+							],
+							"path": [
+								"api",
+								"v1",
+								"blog",
+								"destroy",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PORTFOLIO",
+			"item": [
+				{
+					"name": "LIST",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://selekda-backend.galih.me/api/v1/portfolio",
+							"protocol": "https",
+							"host": [
+								"selekda-backend",
+								"galih",
+								"me"
+							],
+							"path": [
+								"api",
+								"v1",
+								"portfolio"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SHOW",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://selekda-backend.galih.me/api/v1/portfolio/show/1",
+							"protocol": "https",
+							"host": [
+								"selekda-backend",
+								"galih",
+								"me"
+							],
+							"path": [
+								"api",
+								"v1",
+								"portfolio",
+								"show",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Galih Kopling",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "description",
+									"value": "Portfolio baru",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://selekda-backend.galih.me/api/v1/portfolio/store",
+							"protocol": "https",
+							"host": [
+								"selekda-backend",
+								"galih",
+								"me"
+							],
+							"path": [
+								"api",
+								"v1",
+								"portfolio",
+								"store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Galih Karbu",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "description",
+									"value": "Kampas kopling",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://selekda-backend.galih.me/api/v1/portfolio/update/1",
+							"protocol": "https",
+							"host": [
+								"selekda-backend",
+								"galih",
+								"me"
+							],
+							"path": [
+								"api",
+								"v1",
+								"portfolio",
+								"update",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://selekda-backend.galih.me/api/v1/portfolio/destroy/1",
+							"protocol": "https",
+							"host": [
+								"selekda-backend",
+								"galih",
+								"me"
+							],
+							"path": [
+								"api",
+								"v1",
+								"portfolio",
+								"destroy",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
