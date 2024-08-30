@@ -43,8 +43,7 @@
             <h1>Lorem ipsum dolor sit amet.</h1>
             <p>27 Agustus 2024</p>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, error. Tempore
-              delectus illo distinctio ...
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, error. Tempore...
             </p>
           </div>
 
@@ -58,8 +57,7 @@
             <h1>Lorem ipsum dolor sit amet.</h1>
             <p>27 Agustus 2024</p>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, error. Tempore
-              delectus illo distinctio ...
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, error. Tempore...
             </p>
           </div>
 
