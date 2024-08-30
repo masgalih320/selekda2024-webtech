@@ -10,6 +10,7 @@ use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -23,7 +24,7 @@ class LoginController extends Controller
         try {
             $user = User::where('username', $request->username)->first();
 
-            if (empty($user)) {
+            if (empty($user) || !Hash::check($request->password, $user->password)) {
                 throw new Exception("Request is missing valid authentication credentials");
             }
 
