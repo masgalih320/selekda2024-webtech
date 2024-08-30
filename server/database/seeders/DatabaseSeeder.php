@@ -29,6 +29,6 @@ class DatabaseSeeder extends Seeder
             'created_at' => now(),
         ]);
 
-        Banner::factory(10)->create();
+        // Banner::factory(10)->create();
     }
 }
