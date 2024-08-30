@@ -46,7 +46,11 @@ class User extends Authenticatable
 
     public function getImageUrlAttribute()
     {
-        return route('media', ['path' => "profile/{$this->profile_picture}"]);
+        if (!is_null($this->profile_picture)) {
+            return route('media', ['path' => "profile/{$this->profile_picture}"]);
+        }
+
+        return null;
     }
 
     /**
