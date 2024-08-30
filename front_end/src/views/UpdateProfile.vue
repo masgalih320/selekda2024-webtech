@@ -66,6 +66,7 @@ const errors = ref([])
 onMounted(() => {
   fetchProfile().then((json) => {
     profile.value = json.data
+    profile.value.profile_picture = ''
   })
 })
 
