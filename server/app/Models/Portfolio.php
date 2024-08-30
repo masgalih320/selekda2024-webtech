@@ -21,11 +21,16 @@ class Portfolio extends Model
         'users'
     ];
 
-    protected $appends = ['author'];
+    protected $appends = ['author', 'image_url'];
 
     public function users()
     {
         return $this->belongsTo(User::class, 'created_by_id');
+    }
+
+    public function getImageUrlAttribute()
+    {
+        return route('media', ['path' => "portfolio/{$this->image}"]);
     }
 
     public function getAuthorAttribute()

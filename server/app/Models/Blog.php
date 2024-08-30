@@ -26,7 +26,7 @@ class Blog extends Model
         'users'
     ];
 
-    protected $appends = ['author'];
+    protected $appends = ['author', 'image_url'];
 
     public function users()
     {
@@ -36,6 +36,11 @@ class Blog extends Model
     public function getAuthorAttribute()
     {
         return $this->users ? $this->users->name : null;
+    }
+
+    public function getImageUrlAttribute()
+    {
+        return route('media', ['path' => "blog/{$this->featured_image}"]);
     }
 
     public function comments()
