@@ -1,0 +1,63 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #424242;
+}
+
+#app {
+  width: 1000px;
+  height: 600px;
+}
+
+#app>#welcome-screen {
+  background-color: white;
+  height: inherit;
+  display: none;
+}
+
+#app>#game-screen {
+  height: inherit;
+  width: inherit;
+  position: relative;
+  background-image: url(../img/background1.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#app>#game-screen>.goals {
+  position: relative;
+  top: 303px;
+}
+
+#app>#game-screen>.goals>.goals-left {
+  position: absolute;
+  left: 5px;
+  width: 11%;
+}
+
+#app>#game-screen>.goals>.goals-right {
+  position: absolute;
+  right: 10px;
+  width: 11%;
+
+  transform: scaleX(-1);
+}
+
+#app>#game-screen>.entity>.player {
+  position: absolute;
+  width: 150px;
+}
