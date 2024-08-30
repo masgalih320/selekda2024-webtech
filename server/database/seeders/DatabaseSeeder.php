@@ -17,17 +17,17 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Galih Kopling',
-            'username' => 'galih',
-            'phone' => '085787725094',
-            'email' => 'galih@kopling.com',
-            'date_of_birth' => '1970-01-01 00:00:00',
-            'password' => Hash::make('kopling'),
-            'roles' => 'administrator',
-            'email_verified_at' => now(),
-            'created_at' => now(),
-        ]);
+        // User::factory()->create([
+        //     'name' => 'Galih Kopling',
+        //     'username' => 'galih',
+        //     'phone' => '085787725094',
+        //     'email' => 'galih@kopling.com',
+        //     'date_of_birth' => '1970-01-01 00:00:00',
+        //     'password' => Hash::make('kopling'),
+        //     'roles' => 'administrator',
+        //     'email_verified_at' => now(),
+        //     'created_at' => now(),
+        // ]);
 
         // Banner::factory(10)->create();
     }
