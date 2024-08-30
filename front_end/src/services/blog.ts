@@ -1,8 +1,8 @@
 import { API_BASE_URL } from '@/env';
 import currentUser from './currentUser';
 
-export async function fetchBanner(): Promise<Object> {
-  return fetch(`${API_BASE_URL}banner`, {
+export async function fetchBlog(): Promise<Object> {
+  return fetch(`${API_BASE_URL}blog`, {
     headers: {
       'accept': 'application/json'
     }
@@ -12,10 +12,10 @@ export async function fetchBanner(): Promise<Object> {
     });
 }
 
-export async function getBanner(id: number): Promise<Object> {
+export async function getBlog(id: number): Promise<Object> {
   const userdata = await currentUser();
 
-  return fetch(`${API_BASE_URL}banner/show/${id}`, {
+  return fetch(`${API_BASE_URL}blog/show/${id}`, {
     method: 'GET',
     headers: {
       'accept': 'application/json',
@@ -27,19 +27,19 @@ export async function getBanner(id: number): Promise<Object> {
     });
 }
 
-export async function updateBanner({ id, data }: { id: number, data: any }): Promise<Object> {
+export async function updateBlog({ id, data }: { id: number, data: any }): Promise<Object> {
   const userdata = await currentUser();
 
   const formData = new FormData();
   formData.append('title', data.title);
   formData.append('description', data.description);
-  formData.append('status', data.status);
+  formData.append('tags', data.tags);
 
-  if (data.image) {
-    formData.append('image', data.image);
+  if (data.featured_image) {
+    formData.append('featured_image', data.featured_image);
   }
 
-  return fetch(`${API_BASE_URL}banner/update/${id}`, {
+  return fetch(`${API_BASE_URL}blog/update/${id}`, {
     method: 'POST',
     headers: {
       'accept': 'application/json',
@@ -50,19 +50,19 @@ export async function updateBanner({ id, data }: { id: number, data: any }): Pro
     .then(response => response.json());
 }
 
-export async function storeBanner({ data }: { data: any }): Promise<Object> {
+export async function storeBlog({ data }: { data: any }): Promise<Object> {
   const userdata = await currentUser();
 
   const formData = new FormData();
   formData.append('title', data.title);
   formData.append('description', data.description);
-  formData.append('status', data.status);
+  formData.append('tags', data.tags);
 
-  if (data.image) {
-    formData.append('image', data.image);
+  if (data.featured_image) {
+    formData.append('featured_image', data.featured_image);
   }
 
-  return fetch(`${API_BASE_URL}banner/store`, {
+  return fetch(`${API_BASE_URL}blog/store`, {
     method: 'POST',
     headers: {
       'accept': 'application/json',
@@ -73,10 +73,10 @@ export async function storeBanner({ data }: { data: any }): Promise<Object> {
     .then(response => response.json());
 }
 
-export async function deleteBanner(id: number): Promise<Object> {
+export async function deleteBlog(id: number): Promise<Object> {
   const userdata = await currentUser();
 
-  return fetch(`${API_BASE_URL}banner/destroy/${id}`, {
+  return fetch(`${API_BASE_URL}blog/destroy/${id}`, {
     method: 'DELETE',
     headers: {
       'accept': 'application/json',

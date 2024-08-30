@@ -74,6 +74,48 @@ const router = createRouter({
             },
           ]
         },
+        {
+          path: 'blog',
+          name: 'blog',
+          children: [
+            {
+              path: '',
+              name: 'list_blog',
+              component: () => import('../views/Admin/Blog/IndexView.vue'),
+            },
+            {
+              path: 'create',
+              name: 'create_blog',
+              component: () => import('../views/Admin/Blog/CreateView.vue'),
+            },
+            {
+              path: 'edit/:id',
+              name: 'edit_blog',
+              component: () => import('../views/Admin/Blog/EditView.vue'),
+            },
+          ]
+        },
+        {
+          path: 'portfolio',
+          name: 'portfolio',
+          children: [
+            {
+              path: '',
+              name: 'list_portfolio',
+              component: () => import('../views/Admin/Portfolio/IndexView.vue'),
+            },
+            {
+              path: 'create',
+              name: 'create_portfolio',
+              component: () => import('../views/Admin/Portfolio/CreateView.vue'),
+            },
+            {
+              path: 'edit/:id',
+              name: 'edit_portfolio',
+              component: () => import('../views/Admin/Portfolio/EditView.vue'),
+            },
+          ]
+        },
       ],
     },
   ],
