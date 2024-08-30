@@ -136,17 +136,16 @@ class BlogController extends Controller
 
             $blog = Blog::findOrFail($id);
 
-            $imageName = null;
             if ($request->hasFile('featured_image')) {
                 $imageName = Str::uuid() . '.' . $request->featured_image->extension();
                 Storage::disk('public')->putFileAs("media/blog/", $request->featured_image, $imageName);
+
+                if (Storage::disk('public')->exists("media/blog/{$blog->featured_image}")) {
+                    Storage::disk('public')->delete("media/blog/{$blog->featured_image}");
+                }
             }
 
-            if (Storage::disk('public')->exists("media/blog/{$blog->featured_image}")) {
-                Storage::disk('public')->delete("media/blog/{$blog->featured_image}");
-            }
-
-            $blog->featured_image = $imageName;
+            $blog->featured_image = $imageName ?? $blog->featured_image;
             $blog->title = $request->title;
             $blog->description = $request->description;
             $blog->tags = explode(',', $request->tags) ?? [];

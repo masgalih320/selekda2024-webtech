@@ -131,18 +131,17 @@ class BannerController extends Controller
 
             $banner = Banner::findOrFail($id);
 
-            $imageName = null;
             if ($request->hasFile('image')) {
                 $imageName = Str::uuid() . '.' . $request->image->extension();
                 Storage::disk('public')->putFileAs("media/banner/", $request->image, $imageName);
-            }
 
-            if (Storage::disk('public')->exists("media/banner/{$banner->image}")) {
-                Storage::disk('public')->delete("media/banner/{$banner->image}");
+                if (Storage::disk('public')->exists("media/banner/{$banner->image}")) {
+                    Storage::disk('public')->delete("media/banner/{$banner->image}");
+                }
             }
 
             $banner->title = $request->title;
-            $banner->image = $imageName;
+            $banner->image = $imageName ?? $request->image;
             $banner->description = $request->description;
             $banner->status = $request->status;
             $banner->save();

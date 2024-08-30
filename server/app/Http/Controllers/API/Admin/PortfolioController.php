@@ -135,18 +135,18 @@ class PortfolioController extends Controller
 
             $portfolio = Portfolio::findOrFail($id);
 
-            $imageName = null;
             if ($request->hasFile('image')) {
                 $imageName = Str::uuid() . '.' . $request->image->extension();
                 Storage::disk('public')->putFileAs("media/portfolio/", $request->image, $imageName);
+
+                if (Storage::disk('public')->exists("media/portfolio/{$portfolio->image}")) {
+                    Storage::disk('public')->delete("media/portfolio/{$portfolio->image}");
+                }
             }
 
-            if (Storage::disk('public')->exists("media/portfolio/{$portfolio->image}")) {
-                Storage::disk('public')->delete("media/portfolio/{$portfolio->image}");
-            }
 
             $portfolio->title = $request->title;
-            $portfolio->image = $imageName;
+            $portfolio->image = $imageName ?? $request->image;
             $portfolio->description = $request->description;
             $portfolio->save();
 
