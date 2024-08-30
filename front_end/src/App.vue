@@ -1,18 +1,18 @@
 <template>
   <header class="header-top container">
-    <RouterLink to="/">
+    <router-link to="/">
       <img alt="WebtechID" class="logo" src="@/assets/img/logo.png" height="50" />
-    </RouterLink>
+    </router-link>
 
     <nav class="header-nav">
-      <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/blog">Blog</RouterLink>
-      <RouterLink to="/login" v-if="userdata == null">Login</RouterLink>
-      <RouterLink to="/register" v-if="userdata == null">Register</RouterLink>
-      <RouterLink to="/admin" v-if="userdata?.user?.roles == 'administrator'">
+      <router-link to="/">Home</router-link>
+      <router-link to="/blog">Blog</router-link>
+      <router-link to="/login" v-if="userdata == null">Login</router-link>
+      <router-link to="/register" v-if="userdata == null">Register</router-link>
+      <router-link to="/admin" v-if="userdata?.user?.roles == 'administrator'">
         Admin Dashboard
-      </RouterLink>
-      <RouterLink to="/logout" v-if="userdata != null">Logout</RouterLink>
+      </router-link>
+      <router-link to="/logout" v-if="userdata != null">Logout</router-link>
     </nav>
   </header>
 

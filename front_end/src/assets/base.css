@@ -2,6 +2,9 @@
   --vt-c-text-muted: #2c3e50;
   --vt-c-primary: #b40e0e;
   --vt-c-primary-hover: #950404;
+
+  --vt-c-bg-default: #e5e5e5;
+  --vt-c-bg-secondary: #D5D5D5;
 }
 
 *,

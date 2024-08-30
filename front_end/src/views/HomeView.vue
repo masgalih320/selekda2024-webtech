@@ -38,7 +38,7 @@
 
         <div class="featured-content">
           <a href="#">
-            <h1>Apakah AI bisa kebelet?</h1>
+            <h1>Apakah robot bisa kebelet boker?</h1>
           </a>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto, eveniet.</p>
         </div>
@@ -120,7 +120,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import fetchBanner from '@/services/banner'
+import { fetchBanner } from '@/services/banner'
 import fetchPortfolio from '@/services/portfolio'
 
 const banners = ref([])

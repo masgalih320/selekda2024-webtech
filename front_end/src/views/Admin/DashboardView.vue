@@ -1,5 +1,11 @@
 <template>
-  <div class="about">
-    <h1>Admin page</h1>
+  <div id="admin-dashboard">
+    <h1>Admin Dashboard</h1>
+
+    <AdminNav> a </AdminNav>
   </div>
 </template>
+
+<script setup>
+import AdminNav from '@/components/AdminNav.vue'
+</script>

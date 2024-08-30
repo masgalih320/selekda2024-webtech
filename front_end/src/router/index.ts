@@ -1,15 +1,17 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router';
 
 const isAuthenticated = () => {
-  return !!localStorage.getItem('selekda_session');
+  const session = localStorage.getItem('selekda_session');
+  return !!session;
 };
 
 const isAdmin = () => {
   const session = localStorage.getItem('selekda_session');
-  if (!session) return false;
-
-  const user = JSON.parse(session);
-  return user.user.roles === 'administrator';
+  if (session) {
+    const user = JSON.parse(session);
+    return user.user.roles === 'administrator';
+  }
+  return false;
 };
 
 const router = createRouter({
@@ -18,24 +20,17 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: () => import('../views/HomeView.vue')
+      component: () => import('../views/HomeView.vue'),
     },
     {
       path: '/about',
       name: 'about',
-      component: () => import('../views/AboutView.vue')
+      component: () => import('../views/AboutView.vue'),
     },
     {
       path: '/login',
       name: 'login',
       component: () => import('../views/Auth/LoginView.vue'),
-      beforeEnter: (to, from, next) => {
-        if (isAuthenticated()) {
-          next({ name: 'login' });
-        } else {
-          next();
-        }
-      },
     },
     {
       path: '/logout',
@@ -45,23 +40,43 @@ const router = createRouter({
     {
       path: '/admin',
       name: 'admin',
-      component: () => import('../views/Admin/DashboardView.vue'),
       beforeEnter: (to, from, next) => {
-        if (!isAuthenticated() && !isAdmin()) {
-          next({ name: 'logout' });
+        if (!isAuthenticated() || !isAdmin()) {
+          next({ name: 'login' });
         } else {
           next();
         }
       },
       children: [
         {
-          path: 'dashboard',
+          path: '',
           name: 'dashboard',
-          component: () => import('../views/Admin/DashboardView.vue')
-        }
-      ]
+          component: () => import('../views/Admin/DashboardView.vue'),
+        },
+        {
+          path: 'banner',
+          name: 'banner',
+          children: [
+            {
+              path: '',
+              name: 'list_banner',
+              component: () => import('../views/Admin/Banner/IndexView.vue'),
+            },
+            {
+              path: 'create',
+              name: 'create_banner',
+              component: () => import('../views/Admin/Banner/CreateView.vue'),
+            },
+            {
+              path: 'edit/:id',
+              name: 'edit_banner',
+              component: () => import('../views/Admin/Banner/EditView.vue'),
+            },
+          ]
+        },
+      ],
     },
-  ]
-})
+  ],
+});
 
-export default router
+export default router;
