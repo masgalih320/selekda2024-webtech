@@ -141,7 +141,7 @@ class BannerController extends Controller
             }
 
             $banner->title = $request->title;
-            $banner->image = $imageName ?? $request->image;
+            $banner->image = $imageName ?? $banner->image;
             $banner->description = $request->description;
             $banner->status = $request->status;
             $banner->save();

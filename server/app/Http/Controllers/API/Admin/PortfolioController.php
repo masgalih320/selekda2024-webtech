@@ -146,7 +146,7 @@ class PortfolioController extends Controller
 
 
             $portfolio->title = $request->title;
-            $portfolio->image = $imageName ?? $request->image;
+            $portfolio->image = $imageName ?? $portfolio->image;
             $portfolio->description = $request->description;
             $portfolio->save();
 
