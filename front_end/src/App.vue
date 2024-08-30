@@ -7,8 +7,12 @@
     <nav class="header-nav">
       <RouterLink to="/">Home</RouterLink>
       <RouterLink to="/blog">Blog</RouterLink>
-      <RouterLink to="/login">Login</RouterLink>
-      <RouterLink to="/register">Register</RouterLink>
+      <RouterLink to="/login" v-if="userdata == null">Login</RouterLink>
+      <RouterLink to="/register" v-if="userdata == null">Register</RouterLink>
+      <RouterLink to="/admin" v-if="userdata?.user?.roles == 'administrator'">
+        Admin Dashboard
+      </RouterLink>
+      <RouterLink to="/logout" v-if="userdata != null">Logout</RouterLink>
     </nav>
   </header>
 
@@ -43,3 +47,23 @@
     <p>Designed by <a href="https://galih.me" class="url-primary">Galih Sukristyan Saputra</a></p>
   </footer>
 </template>
+
+<script setup>
+import currentUser from '@/services/currentUser'
+import { onMounted, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
+
+const userdata = ref([])
+const route = useRoute()
+
+onMounted(async () => {
+  userdata.value = await currentUser()
+})
+
+watch(
+  () => route.fullPath,
+  async () => {
+    userdata.value = await currentUser()
+  }
+)
+</script>

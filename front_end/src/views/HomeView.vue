@@ -18,6 +18,13 @@
     </div>
   </section>
 
+  <section id="search">
+    <form action="" method="">
+      <input type="text" class="search-input" />
+      <button type="submit">Search</button>
+    </form>
+  </section>
+
   <section class="about">
     <h2>About</h2>
   </section>
