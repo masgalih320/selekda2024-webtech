@@ -29,9 +29,57 @@ p {
 }
 
 #app>#welcome-screen {
-  background-color: white;
+  background-color: #00712D;
   height: inherit;
-  display: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#app>#welcome-screen>.welcome-container {
+  width: 30%;
+}
+
+#app>#welcome-screen>.welcome-container>h1 {
+  text-align: center;
+  font-size: 24px;
+  color: #FFF;
+}
+
+#app>#welcome-screen>.welcome-container .welcome-buttons {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+#app>#welcome-screen>.welcome-container button:disabled {
+  cursor: not-allowed;
+}
+
+#app>#welcome-screen>.welcome-container button {
+  width: 100%;
+  padding: .5rem 1rem;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+#app>#welcome-screen>.welcome-container>input,
+#app>#welcome-screen>.welcome-container>select {
+  width: 100%;
+  display: block;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  padding: .5rem;
+  border-radius: 5px;
+}
+
+#app>#welcome-screen>.welcome-container>input:not(:last-child),
+#app>#welcome-screen>.welcome-container>select:not(:last-child) {
+  margin-bottom: 1rem;
 }
 
 #app>#game-screen {
@@ -42,6 +90,8 @@ p {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+
+  display: none;
 }
 
 #app>#game-screen>.goals {

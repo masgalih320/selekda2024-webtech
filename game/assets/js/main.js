@@ -11,7 +11,7 @@ let position = {
 let gameMetadata = {
   playerName: 'Galih Kopling',
   score: { player1: 0, player2: 0 },
-  teams: { player1: 'Brazil', player2: 'Japan' },
+  teams: { player1: 'England', player2: 'Spain' },
 }
 
 const welcomeScreem = document.querySelector('#welcome-screen');
@@ -22,10 +22,22 @@ const ballsContainer = document.querySelector('.balls');
 const flagsContainer = document.querySelector('.flags');
 
 const playerNameContainer = document.querySelector('.player-name > h1')
+const player1board = document.querySelector('#team-left')
+const player2board = document.querySelector('#team-right')
 
+/**
+ * Render player
+ */
 const renderPlayer = () => {
   // show player name
   playerNameContainer.textContent = gameMetadata.playerName
+
+  // render team flag in leaderboard
+  player1board.querySelector('img').setAttribute('src', `assets/img/Flag/${gameMetadata.teams.player1}.png`)
+  player1board.querySelector('p').textContent = gameMetadata.teams.player1
+
+  player2board.querySelector('img').setAttribute('src', `assets/img/Flag/${gameMetadata.teams.player2}.png`)
+  player2board.querySelector('p').textContent = gameMetadata.teams.player2
 
   // render player 1
   const createPlayer1 = document.createElement('img')
@@ -47,6 +59,9 @@ const renderPlayer = () => {
   entityContainer.append(createPlayer2)
 }
 
+/**
+ * Render Flag
+ */
 const renderFlag = () => {
   for (let i = 0; i <= 6; i++) {
     const createFlag1 = document.createElement('img');
@@ -59,6 +74,9 @@ const renderFlag = () => {
   }
 }
 
+/**
+ * Render Ball
+ */
 const renderBall = () => {
   balls.forEach((seg, index) => {
     const createBall = document.createElement('img')
