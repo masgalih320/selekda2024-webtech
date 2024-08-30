@@ -57,7 +57,16 @@ function login() {
 
     if (json.data != undefined) {
       localStorage.setItem('selekda_session', JSON.stringify(json.data))
-      router.push('admin')
+
+      if (json.data.user.roles == 'administrator') {
+        router.push('admin')
+      } else if (json.data.user.roles == 'user') {
+        router.push('/')
+      }
+    }
+
+    if (json.code != undefined && json.code == 401) {
+      alert(json.message)
     }
   })
 }

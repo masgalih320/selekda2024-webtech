@@ -10,6 +10,7 @@
         <thead>
           <tr>
             <th>NO</th>
+            <th>AUTHOR</th>
             <th>TITLE</th>
             <th>IMAGE</th>
             <th>DESCRIPTION</th>
@@ -21,6 +22,7 @@
         <tbody>
           <tr v-for="(portfolio, index) in portfolios" :key="index">
             <td>{{ index + 1 }}</td>
+            <td>{{ portfolio.author }}</td>
             <td>{{ portfolio.title }}</td>
             <td>
               <img :src="portfolio.image_url" :alt="portfolio.title" width="100" />
