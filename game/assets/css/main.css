@@ -61,3 +61,7 @@ body {
   position: absolute;
   width: 150px;
 }
+
+#app>#game-screen>.entity .player.left {
+  transform: scaleX(-1);
+}
