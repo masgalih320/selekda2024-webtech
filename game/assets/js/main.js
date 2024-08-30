@@ -1,13 +1,15 @@
 let isPlay = false;
+
 let items = [];
 let balls = [
-  {}
+  { x: 472, y: 225, gravity: 1 }
 ]
 let position = {
   player1: { x: 300, y: 390, isJump: false, isWalk: false, isKick: false, isGoal: false, facing: 'right' },
   player2: { x: 550, y: 390, isJump: false, isWalk: false, isKick: false, isGoal: false, facing: 'right' },
 };
 let gameMetadata = {
+  playerName: 'Galih Kopling',
   score: { player1: 0, player2: 0 },
   teams: { player1: 'Brazil', player2: 'Japan' },
 }
@@ -16,9 +18,15 @@ const welcomeScreem = document.querySelector('#welcome-screen');
 const gameScreen = document.querySelector('#game-screen');
 
 const entityContainer = document.querySelector('.entity');
+const ballsContainer = document.querySelector('.balls');
 const flagsContainer = document.querySelector('.flags');
 
+const playerNameContainer = document.querySelector('.player-name > h1')
+
 const renderPlayer = () => {
+  // show player name
+  playerNameContainer.textContent = gameMetadata.playerName
+
   // render player 1
   const createPlayer1 = document.createElement('img')
   createPlayer1.src = `assets/img/Characters/Character - ${gameMetadata.teams.player1}/Idle/Idle_000.png`
@@ -51,5 +59,16 @@ const renderFlag = () => {
   }
 }
 
+const renderBall = () => {
+  balls.forEach((seg, index) => {
+    const createBall = document.createElement('img')
+    createBall.src = `assets/img/ball-02.png`;
+    createBall.setAttribute('id', `ball-${index}`)
+    createBall.classList.add('balls')
+    ballsContainer.append(createBall)
+  })
+}
+
 renderPlayer()
 renderFlag()
+renderBall()
