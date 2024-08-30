@@ -7,6 +7,8 @@
     <nav class="header-nav">
       <RouterLink to="/">Home</RouterLink>
       <RouterLink to="/blog">Blog</RouterLink>
+      <RouterLink to="/login">Login</RouterLink>
+      <RouterLink to="/register">Register</RouterLink>
     </nav>
   </header>
 

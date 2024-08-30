@@ -24,6 +24,51 @@
 
   <section class="news">
     <h2>News</h2>
+
+    <div class="news-cards">
+      <article class="featured">
+        <img src="@/assets/img/news/images-1.jpg" alt="Featured news" />
+
+        <div class="featured-content">
+          <a href="#">
+            <h1>Apakah AI bisa kebelet?</h1>
+          </a>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto, eveniet.</p>
+        </div>
+      </article>
+
+      <div class="news-list">
+        <article class="news-item">
+          <div class="news-content">
+            <h1>Lorem ipsum dolor sit amet.</h1>
+            <p>27 Agustus 2024</p>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, error. Tempore
+              delectus illo distinctio ...
+            </p>
+          </div>
+
+          <div class="news-image">
+            <img src="@/assets/img/news/images-2.png" alt="News 1" />
+          </div>
+        </article>
+
+        <article class="news-item">
+          <div class="news-content">
+            <h1>Lorem ipsum dolor sit amet.</h1>
+            <p>27 Agustus 2024</p>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, error. Tempore
+              delectus illo distinctio ...
+            </p>
+          </div>
+
+          <div class="news-image">
+            <img src="@/assets/img/news/images-2.png" alt="News 1" />
+          </div>
+        </article>
+      </div>
+    </div>
   </section>
 
   <section class="services">
