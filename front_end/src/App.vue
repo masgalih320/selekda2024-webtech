@@ -7,6 +7,7 @@
     <nav class="header-nav">
       <router-link to="/">Home</router-link>
       <router-link to="/blog">Blog</router-link>
+      <router-link to="/update_profile" v-if="userdata !== null"> Update Profile </router-link>
       <router-link to="/login" v-if="userdata == null">Login</router-link>
       <router-link to="/register" v-if="userdata == null">Register</router-link>
       <router-link to="/admin" v-if="userdata?.user?.roles == 'administrator'">
