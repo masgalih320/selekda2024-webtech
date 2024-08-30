@@ -2,19 +2,20 @@ let isPlay = false;
 
 let items = [];
 let balls = [
-  { x: 472, y: 225, gravity: 1 }
+  { x: 472, y: 225, gravity: 1, ball: 0 }
 ]
 let position = {
   player1: { x: 300, y: 390, isJump: false, isWalk: false, isKick: false, isGoal: false, facing: 'right' },
   player2: { x: 550, y: 390, isJump: false, isWalk: false, isKick: false, isGoal: false, facing: 'right' },
 };
 let gameMetadata = {
-  playerName: 'Galih Kopling',
+  playerName: '',
   score: { player1: 0, player2: 0 },
-  teams: { player1: 'England', player2: 'Spain' },
+  teams: { player1: '', player2: '' },
+  timer: 0
 }
 
-const welcomeScreem = document.querySelector('#welcome-screen');
+const welcomeScreen = document.querySelector('#welcome-screen');
 const gameScreen = document.querySelector('#game-screen');
 
 const entityContainer = document.querySelector('.entity');
@@ -24,6 +25,89 @@ const flagsContainer = document.querySelector('.flags');
 const playerNameContainer = document.querySelector('.player-name > h1')
 const player1board = document.querySelector('#team-left')
 const player2board = document.querySelector('#team-right')
+
+const timerEl = document.querySelector('.timer-count')
+const playBtn = welcomeScreen.querySelector('[type="submit"]')
+
+/**
+ * Validate all input & select
+ */
+function validate() {
+  function isValid() {
+    let check1 = Array.from(document.querySelectorAll('[name="username"]')).every(item => {
+      return item.value.length > 0
+    })
+
+    let check2 = Array.from(document.querySelectorAll('select')).every(item => {
+      return item.value.length > 0
+    })
+
+    if (check1 && check2) {
+      playBtn.removeAttribute('disabled')
+    } else {
+      playBtn.setAttribute('disabled', true)
+    }
+  }
+  isValid()
+
+  document.querySelector('[name="username"]').addEventListener('change', function (e) {
+    validate()
+  })
+
+  document.querySelectorAll('select').forEach((seg) => {
+    seg.addEventListener('change', function (e) {
+      validate()
+    })
+  })
+}
+validate();
+
+welcomeScreen.querySelector('form').addEventListener('submit', function (e) {
+  e.preventDefault();
+
+  isPlay = true;
+
+  balls[0].ball = document.querySelector('[name="ball"]').value
+  gameMetadata.playerName = document.querySelector('[name="username"]').value
+  gameMetadata.teams.player1 = document.querySelector('[name="country"]').value
+
+  if (document.querySelector('[name="computer_country"]').value == 'random') {
+    const country = [
+      'Brazil', 'England', 'Germany', 'Italy', 'Japan', 'Netherlands', 'Portugal', 'Spain'
+    ];
+
+    gameMetadata.teams.player2 = country[Math.floor(Math.random() * country.length)];
+  }
+
+  if (document.querySelector('[name="level"]').value == 'easy') {
+    gameMetadata.timer = 30
+  } else if (document.querySelector('[name="level"]').value == 'medium') {
+    gameMetadata.timer = 20
+  } else {
+    gameMetadata.timer = 15
+  }
+
+  // render & register player movement
+  renderTimer(gameMetadata.timer)
+  renderPlayer()
+  renderBall()
+  renderFlag()
+  movePlayer({
+    playerData: {
+      who: 'player1',
+      element: 'player-1'
+    },
+    key: {
+      leftKey: 'KeyA',
+      rightKey: 'KeyD',
+      jumpKey: 'KeyW',
+      kickKey: 'Space'
+    }
+  })
+
+  welcomeScreen.style.display = 'none'
+  gameScreen.style.display = 'block'
+})
 
 /**
  * Render player
@@ -80,13 +164,84 @@ const renderFlag = () => {
 const renderBall = () => {
   balls.forEach((seg, index) => {
     const createBall = document.createElement('img')
-    createBall.src = `assets/img/ball-02.png`;
+    createBall.src = `assets/img/ball-0${seg.ball}.png`;
     createBall.setAttribute('id', `ball-${index}`)
     createBall.classList.add('balls')
     ballsContainer.append(createBall)
   })
 }
 
-renderPlayer()
-renderFlag()
-renderBall()
+const renderTimer = (time) => {
+  timerEl.textContent = time
+}
+
+/**
+ * Handle user movement key
+ */
+const movePlayer = ({
+  playerData: { who, element },
+  key: { leftKey, rightKey, jumpKey, kickKey }
+}) => {
+  window.addEventListener('keydown', function (e) {
+    const { code } = e;
+
+    switch (code) {
+      case leftKey:
+        position[who].isWalk = true;
+        position[who].facing = 'left';
+        break;
+
+      case rightKey:
+        position[who].isWalk = true;
+        position[who].facing = 'right';
+        break;
+
+      case jumpKey:
+        if (!position[who].isJump) {
+          position[who].isJump = true;
+          position[who].y = -15;
+        }
+        break;
+
+      case kickKey:
+        if (!position[who].isKick) {
+          position[who].isKick = true;
+          document.getElementById(element).src = `./assets/img/Characters/Character - ${gameMetadata.teams[who]}/Kick/Kick_001.png`;
+        }
+        break;
+
+      default:
+        break;
+    }
+  });
+
+  window.addEventListener('keyup', function (e) {
+    const { code } = e;
+
+    switch (code) {
+      case leftKey:
+      case rightKey:
+        if (position[who].isWalk) {
+          position[who].isWalk = true;
+        }
+        break;
+
+      case kickKey:
+        if (position[who].isWalk) {
+          position[who].isKick = true;
+          document.getElementById(element).src = `./assets/img/Characters/Character - ${gameMetadata.teams[who]}/Kick/Kick_001.png`;
+        }
+        break;
+
+      default:
+        break;
+    }
+  })
+}
+
+const animate = () => {
+
+  window.requestAnimationFrame(animate)
+}
+
+window.requestAnimationFrame(animate)

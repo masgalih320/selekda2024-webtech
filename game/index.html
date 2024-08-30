@@ -16,6 +16,44 @@
 
         <input type="text" name="username" placeholder="Username">
 
+        <select name="level" id="level">
+          <option value="">Select Level</option>
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+
+        <select name="ball" id="ball">
+          <option value="">Select Ball</option>
+          <option value="1">Ball 1</option>
+          <option value="2">Ball 2</option>
+        </select>
+
+        <select name="country" id="country">
+          <option value="">Country</option>
+          <option value="Brazil">Brazil</option>
+          <option value="England">England</option>
+          <option value="Germany">Germany</option>
+          <option value="Italy">Italy</option>
+          <option value="Japan">Japan</option>
+          <option value="Netherlands">Netherlands</option>
+          <option value="Portugal">Portugal</option>
+          <option value="Spain">Spain</option>
+        </select>
+
+        <select name="computer_country" id="country">
+          <option value="">Computer Country</option>
+          <option value="random">Random?</option>
+          <option value="Brazil">Brazil</option>
+          <option value="England">England</option>
+          <option value="Germany">Germany</option>
+          <option value="Italy">Italy</option>
+          <option value="Japan">Japan</option>
+          <option value="Netherlands">Netherlands</option>
+          <option value="Portugal">Portugal</option>
+          <option value="Spain">Spain</option>
+        </select>
+
         <div class="welcome-buttons">
           <button type="submit">Submit</button>
           <button type="button">Instructions</button>
@@ -36,8 +74,14 @@
           </div>
 
           <div class="scoreboard">
-            <div class="score-left">0</div>
-            <div class="score-right">0</div>
+            <div class="scores">
+              <div class="score-left">0</div>
+              <div class="score-right">0</div>
+            </div>
+
+            <div class="timer">
+              <h1 class="timer-count">0</h1>
+            </div>
           </div>
 
           <div class="team" id="team-right">
