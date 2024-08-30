@@ -16,8 +16,9 @@ const welcomeScreem = document.querySelector('#welcome-screen');
 const gameScreen = document.querySelector('#game-screen');
 
 const entityContainer = document.querySelector('.entity');
+const flagsContainer = document.querySelector('.flags');
 
-function renderPlayer() {
+const renderPlayer = () => {
   // render player 1
   const createPlayer1 = document.createElement('img')
   createPlayer1.src = `assets/img/Characters/Character - ${gameMetadata.teams.player1}/Idle/Idle_000.png`
@@ -38,4 +39,17 @@ function renderPlayer() {
   entityContainer.append(createPlayer2)
 }
 
+const renderFlag = () => {
+  for (let i = 0; i <= 6; i++) {
+    const createFlag1 = document.createElement('img');
+    createFlag1.src = `assets/img/Flag/${gameMetadata.teams.player1}.png`
+    flagsContainer.append(createFlag1)
+
+    const createFlag2 = document.createElement('img');
+    createFlag2.src = `assets/img/Flag/${gameMetadata.teams.player2}.png`
+    flagsContainer.append(createFlag2)
+  }
+}
+
 renderPlayer()
+renderFlag()

@@ -65,3 +65,13 @@ body {
 #app>#game-screen>.entity .player.left {
   transform: scaleX(-1);
 }
+
+#app>#game-screen>.flags {
+  width: 1000px;
+  height: 59px;
+  overflow-x: hidden;
+  position: absolute;
+  top: 63.4%;
+  display: inline-flex;
+  grid-template-columns: repeat(12, 1fr);
+}
