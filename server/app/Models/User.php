@@ -42,6 +42,13 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected $appends = ['image_url'];
+
+    public function getImageUrlAttribute()
+    {
+        return route('media', ['path' => "profile/{$this->profile_picture}"]);
+    }
+
     /**
      * Get the attributes that should be cast.
      *
