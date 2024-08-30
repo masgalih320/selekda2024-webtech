@@ -2,11 +2,11 @@ let isPlay = false;
 
 let items = [];
 let balls = [
-  { x: 472, y: 225, gravity: 1, ball: 0 }
+  { x: 472, y: 225, size: 50, gravity: 1, ball: 0, bounceFactor: 0.5, ground: 500 }
 ]
 let position = {
-  player1: { x: 300, y: 390, isJump: false, isWalk: false, isKick: false, isGoal: false, facing: 'right', gravity: 0.8 },
-  player2: { x: 550, y: 390, isJump: false, isWalk: false, isKick: false, isGoal: false, facing: 'right', gravity: 0.8 },
+  player1: { x: 300, y: 390, size: 150, isJump: false, isWalk: false, isKick: false, isGoal: false, facing: 'right', gravity: 0.8 },
+  player2: { x: 550, y: 390, size: 150, isJump: false, isWalk: false, isKick: false, isGoal: false, facing: 'right', gravity: 0.8 },
 };
 let gameMetadata = {
   playerName: '',
@@ -26,6 +26,7 @@ const playerNameContainer = document.querySelector('.player-name > h1')
 const player1board = document.querySelector('#team-left')
 const player2board = document.querySelector('#team-right')
 
+const scoreBoard = document.querySelector('.scoreboard')
 const timerEl = document.querySelector('.timer-count')
 const playBtn = welcomeScreen.querySelector('[type="submit"]')
 
@@ -299,17 +300,81 @@ const updateTimer = () => {
         alert('Draw')
       }
 
-      isPlay = false;
-      gameScreen.style.display = 'none';
-      welcomeScreen.style.display = 'flex';
+      window.location.reload()
     }
   }, 1000);
 }
 
+const handleBallPhysics = () => {
+  balls.forEach((seg, index) => {
+    seg.y += seg.gravity;
+
+    if (seg.y + seg.size >= seg.ground) {
+      seg.y = seg.ground - seg.size;
+      seg.gravity = -seg.gravity * seg.bounceFactor;
+    } else {
+      seg.gravity += 0.5;
+    }
+
+    if (seg.y - seg.size <= 0) {
+      seg.y = seg.size;
+      seg.gravity = -seg.gravity;
+    }
+
+    if (isCollide(position.player1, seg)) {
+      seg.x += 3
+    } else if (isCollide(position.player2, seg)) {
+      seg.x += -3
+    }
+
+    document.getElementById(`ball-${index}`).style.left = `${seg.x}px`;
+    document.getElementById(`ball-${index}`).style.top = `${seg.y}px`;
+    document.getElementById(`ball-${index}`).style.transform = `rotate(${seg.x * 3}deg)`;
+
+    if (seg.x >= 900) {
+      isPlay = false;
+      gameMetadata.score.player1 += 1
+      scoreBoard.querySelector('.scores > .score-left').textContent = gameMetadata.score.player1
+
+      entityContainer.innerHTML = ''
+      ballsContainer.innerHTML = ''
+
+      position.player1.x = 300
+      position.player1.y = 390
+
+      seg.x = 472
+      seg.y = 225
+
+      renderPlayer()
+      renderBall()
+
+      alert('Goal!');
+
+      isPlay = true;
+    }
+  })
+}
+
+/**
+ * Check if balls / player are collided
+ */
+const isCollide = (a, b) => {
+  return !(
+    ((a.y + a.size) < (b.y)) ||
+    (a.y > (b.y + b.size)) ||
+    ((a.x + a.size) < b.x) ||
+    (a.x > (b.x + b.size))
+  );
+}
+
+/**
+ * Process all animation frame
+ */
 const animate = () => {
   if (isPlay) {
     handlePlayerMovement();
     handlePlayerPhysics();
+    handleBallPhysics()
   }
 
   window.requestAnimationFrame(animate)
