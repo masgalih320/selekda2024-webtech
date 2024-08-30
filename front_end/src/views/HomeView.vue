@@ -121,10 +121,8 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { fetchBanner } from '@/services/banner'
-import fetchPortfolio from '@/services/portfolio'
 
 const banners = ref([])
-const portfolio = ref([])
 const currentBannerIndex = ref(0)
 
 function prevSlide() {
@@ -146,10 +144,6 @@ function nextSlide() {
 onMounted(() => {
   fetchBanner().then((json) => {
     banners.value = json
-  })
-
-  fetchPortfolio().then((json) => {
-    portfolio.value = json
   })
 })
 </script>
